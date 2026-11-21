@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: var(--cg-canvas);
+  --color-sidebar: var(--cg-sidebar);
+  --color-elevated: var(--cg-elevated);
+  --color-composer: var(--cg-composer);
+  --color-bubble: var(--cg-bubble);
+  --color-code: var(--cg-code);
+  --color-fg: var(--cg-fg);
+  --color-muted: var(--cg-muted);
+  --color-faint: var(--cg-faint);
+  --color-line: var(--cg-line);
+  --color-hover: var(--cg-hover);
+  --color-accent: var(--cg-accent);
+  --color-accent-fg: var(--cg-accent-fg);
+  --color-danger: var(--cg-danger);
+  --color-on-danger: #ffffff;
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --cg-canvas: #ffffff;
+  --cg-sidebar: #f9f9f9;
+  --cg-elevated: #ffffff;
+  --cg-composer: #ffffff;
+  --cg-bubble: #f4f4f4;
+  --cg-code: #f4f4f4;
+  --cg-fg: #0d0d0d;
+  --cg-muted: #5d5d5d;
+  --cg-faint: #8d8d8d;
+  --cg-line: #ececec;
+  --cg-hover: #f0f0f0;
+  --cg-accent: #0d0d0d;
+  --cg-accent-fg: #ffffff;
+  --cg-danger: #d14343;
+  --cg-scrim: rgb(13 13 13 / 0.4);
+  --cg-composer-border: #e3e3e3;
+  --cg-composer-shadow: 0 12px 40px rgb(0 0 0 / 0.06);
+  --cg-pop-shadow: 0 16px 60px rgb(0 0 0 / 0.14);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --cg-canvas: #212121;
+  --cg-sidebar: #171717;
+  --cg-elevated: #2f2f2f;
+  --cg-composer: #303030;
+  --cg-bubble: #303030;
+  --cg-code: #171717;
+  --cg-fg: #ececec;
+  --cg-muted: #b4b4b4;
+  --cg-faint: #8e8e8e;
+  --cg-line: rgb(255 255 255 / 0.1);
+  --cg-hover: rgb(255 255 255 / 0.08);
+  --cg-accent: #ffffff;
+  --cg-accent-fg: #0d0d0d;
+  --cg-danger: #ff8585;
+  --cg-scrim: rgb(0 0 0 / 0.62);
+  --cg-composer-border: transparent;
+  --cg-composer-shadow: none;
+  --cg-pop-shadow: 0 24px 80px rgb(0 0 0 / 0.5);
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--cg-canvas);
+    color: var(--cg-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--cg-fg) 18%, transparent);
+  }
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--cg-line) transparent;
+}
+
+.composer-shell {
+  background: var(--cg-composer);
+  border: 1px solid var(--cg-composer-border);
+  box-shadow: var(--cg-composer-shadow);
+}
+
+.composer-shell:focus-within {
+  border-color: color-mix(in srgb, var(--cg-fg) 55%, var(--cg-composer-border));
+}
+
+.shadow-pop {
+  box-shadow: var(--cg-pop-shadow);
+}
+
+.scrim {
+  background: var(--cg-scrim);
+}
+
+[data-theme="light"] .btn-login {
+  background: transparent;
+  color: var(--cg-fg);
+}
+[data-theme="light"] .btn-login:hover {
+  background: var(--cg-hover);
+}
+[data-theme="light"] .btn-signup {
+  background: var(--cg-accent);
+  color: var(--cg-accent-fg);
+}
+[data-theme="dark"] .btn-login {
+  background: var(--cg-accent);
+  color: var(--cg-accent-fg);
+}
+[data-theme="dark"] .btn-signup {
+  background: transparent;
+  color: var(--cg-fg);
+  box-shadow: inset 0 0 0 1px var(--cg-line);
+}
+[data-theme="dark"] .btn-signup:hover {
+  background: var(--cg-hover);
+}
+
+.headline-in {
+  animation: headline-in 0.45s ease;
+}
+
+@keyframes headline-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.msg-in {
+  animation: msg-in 0.28s ease;
+}
+
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.orb {
+  background:
+    radial-gradient(circle at 35% 30%, #fff, transparent 42%),
+    radial-gradient(circle at 60% 70%, var(--cg-muted), var(--cg-fg));
+  animation: orb-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.working-spin {
+  animation: spin 1.1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline-in,
+  .msg-in,
+  .orb,
+  .working-spin {
+    animation: none;
+  }
+}

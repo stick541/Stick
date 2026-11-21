@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Stick AI",
+      "hasCanvas": false,
+      "bodyTextLen": 403,
+      "bodyTextHash": "9a88f28d2f2d155500d11119a15e7ea7ee2cd8806e5ed734c53113aac21e08d9",
+      "bodyTextPrefix": "Stick AI New chat Search chats Images Plugins Deep research See ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Stick AI",
+      "hasCanvas": false,
+      "bodyTextLen": 386,
+      "bodyTextHash": "31656d6ec6bcea230bf5fde9e0a9a11fcbf8477dec8e3dcf6673a712b8dc1e7f",
+      "bodyTextPrefix": "Stick AI New chat Search chats Images Plugins Deep research See ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

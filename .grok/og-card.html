@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>ChatGPT</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #171717; color: #ffffff;
+    font-family: "Liberation Sans", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    width: 1200px; height: 630px;
+    display: flex;
+    background: #212121;
+  }
+  .side {
+    width: 268px; flex: none;
+    background: #171717;
+    display: flex; flex-direction: column;
+    padding: 14px 12px 14px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .side-top {
+    display: flex; align-items: center; gap: 10px;
+    height: 40px; padding: 0 8px; margin-bottom: 8px;
+  }
+  .side-top .mark { width: 26px; height: 26px; color: #ffffff; display: block; }
+  .side-top .word {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: #ffffff;
+  }
+  .row {
+    display: flex; align-items: center; gap: 10px;
+    height: 40px; padding: 0 10px; border-radius: 10px;
+    color: rgba(255,255,255,0.88); font-size: 14.5px; font-weight: 400;
+  }
+  .row.new { color: #ffffff; }
+  .row svg { width: 18px; height: 18px; flex: none; }
+  .label {
+    margin: 16px 10px 6px;
+    font-size: 12px; letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.38); font-weight: 700;
+    text-transform: uppercase;
+  }
+  .chat {
+    height: 38px; display: flex; align-items: center;
+    padding: 0 10px; border-radius: 10px;
+    color: rgba(255,255,255,0.78); font-size: 14.5px;
+  }
+  .chat.active { background: rgba(255,255,255,0.06); color: #ffffff; }
+  .spacer { flex: 1; }
+  .user {
+    display: flex; align-items: center; gap: 10px;
+    height: 44px; padding: 0 8px; border-radius: 12px;
+  }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #ffffff; color: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+  .user span { font-size: 14.5px; color: #ffffff; }
+  .main {
+    flex: 1; display: flex; flex-direction: column;
+    background: #212121; min-width: 0;
+  }
+  .header {
+    height: 56px; display: flex; align-items: center; justify-content: center;
+    gap: 6px; color: #ffffff; font-size: 15px; font-weight: 600;
+  }
+  .chev { width: 14px; height: 14px; opacity: 0.7; }
+  .stage {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding-bottom: 8px;
+  }
+  .hero-mark { width: 84px; height: 84px; color: #ffffff; }
+  .hero-word {
+    margin-top: 18px;
+    font-size: 58px; line-height: 1; font-weight: 700;
+    letter-spacing: -0.04em; color: #ffffff;
+  }
+  .composer-wrap { padding: 8px 28px 26px; }
+  .composer {
+    height: 58px; border-radius: 29px;
+    background: #2f2f2f;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 10px 0 16px;
+  }
+  .plus {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.85);
+  }
+  .plus svg { width: 20px; height: 20px; }
+  .ph {
+    flex: 1; color: rgba(255,255,255,0.42);
+    font-size: 16.5px; font-weight: 400;
+  }
+  .send {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #ffffff; color: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .send svg { width: 18px; height: 18px; }
+</style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="side-top">
+        <span class="mark"><svg viewBox="1.68 1.75 16.65 16.5" aria-hidden="true"><path fill="currentColor" d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg></span>
+        <span class="word">ChatGPT</span>
+      </div>
+      <div class="row new">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        New chat
+      </div>
+      <div class="label">Recents</div>
+      <div class="chat active">Draft a launch note</div>
+      <div class="chat">Explain this simply</div>
+      <div class="chat">Weekend dinner ideas</div>
+      <div class="chat">Rewrite the intro</div>
+      <div class="spacer"></div>
+      <div class="user">
+        <div class="avatar">Y</div>
+        <span>You</span>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="header">
+        ChatGPT
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </div>
+      <div class="stage">
+        <span class="hero-mark"><svg viewBox="1.68 1.75 16.65 16.5" aria-hidden="true"><path fill="currentColor" d="M11.248 18.25q-.825 0-1.568-.314a4.3 4.3 0 0 1-1.32-.874 4 4 0 0 1-1.304.214 4 4 0 0 1-2.046-.544 4.27 4.27 0 0 1-1.518-1.485 4 4 0 0 1-.56-2.095q0-.48.131-1.04A4.4 4.4 0 0 1 2.04 10.71a4.07 4.07 0 0 1 .017-3.4 4.2 4.2 0 0 1 1.056-1.418 3.8 3.8 0 0 1 1.6-.842 3.9 3.9 0 0 1 .76-1.683q.593-.759 1.451-1.188a4.04 4.04 0 0 1 1.832-.429q.825 0 1.567.313.742.314 1.32.875a4 4 0 0 1 1.304-.215q1.106 0 2.046.545a4.14 4.14 0 0 1 1.501 1.485q.578.941.578 2.095 0 .48-.132 1.04.66.61 1.023 1.419.363.792.363 1.666 0 .892-.38 1.717a4.3 4.3 0 0 1-1.072 1.435 3.8 3.8 0 0 1-1.584.825 3.8 3.8 0 0 1-.775 1.683 4.06 4.06 0 0 1-1.436 1.188 4.04 4.04 0 0 1-1.832.429m-4.076-2.062q.825 0 1.435-.347l3.103-1.782a.36.36 0 0 0 .164-.313v-1.42L7.881 14.62a.67.67 0 0 1-.726 0l-3.118-1.798a.5.5 0 0 1-.017.115v.198q0 .841.396 1.551.413.693 1.139 1.089a3.2 3.2 0 0 0 1.617.412m.165-2.69a.4.4 0 0 0 .181.05q.083 0 .165-.05l1.238-.71-3.977-2.31a.7.7 0 0 1-.363-.643v-3.58q-.825.362-1.32 1.122a2.9 2.9 0 0 0-.495 1.65q0 .809.413 1.55.412.743 1.072 1.123zm3.91 3.663q.875 0 1.585-.396a2.96 2.96 0 0 0 1.534-2.64v-3.564a.32.32 0 0 0-.165-.297l-1.254-.726v4.604a.7.7 0 0 1-.363.643l-3.119 1.799a3 3 0 0 0 1.783.577m.627-6.039V8.878L10.01 7.822 8.129 8.878v2.244l1.881 1.056zM7.057 5.859a.7.7 0 0 1 .363-.644l3.119-1.798a3 3 0 0 0-1.782-.578q-.874 0-1.584.396A2.96 2.96 0 0 0 6.05 4.324a3.07 3.07 0 0 0-.396 1.551v3.547q0 .199.165.314l1.237.726zm8.383 7.887q.825-.364 1.303-1.123.495-.758.495-1.65a3.15 3.15 0 0 0-.412-1.55q-.413-.743-1.073-1.123l-3.086-1.782q-.099-.065-.181-.049a.3.3 0 0 0-.165.05l-1.238.692 3.993 2.327a.6.6 0 0 1 .264.264.64.64 0 0 1 .1.363zm-3.317-8.382a.63.63 0 0 1 .726 0l3.135 1.831v-.297q0-.792-.396-1.501a2.86 2.86 0 0 0-1.105-1.155q-.71-.43-1.65-.43-.825 0-1.436.347L8.294 5.941a.36.36 0 0 0-.165.314v1.418z"/></svg></span>
+        <div class="hero-word">ChatGPT</div>
+      </div>
+      <div class="composer-wrap">
+        <div class="composer">
+          <div class="plus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </div>
+          <div class="ph">Message ChatGPT</div>
+          <div class="send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19V5M6 11l6-6 6 6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
